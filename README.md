@@ -23,7 +23,7 @@ I2C SDA - > ESP32 Pin D21 (GIPO 21, Yellow cables in the images below)
 
 The MAX30102 sensor accuracy depends on its stability and its IR sensor needs to be away from direct light. As such the sensor is mounted in Pulse Oximeter Finger Clip:  
 
-![MAX30102 Clip](images/MAX30102.png)
+![MAX30102 Clip](images/MAX30102-clip.png)
 
 The MAX30102 clip is 3D printed based on extended version of the following open 3D model from Thingiverse: 
 
