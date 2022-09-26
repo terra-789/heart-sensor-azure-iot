@@ -1,0 +1,19 @@
+
+
+@device-id = esp32-01
+@iot-hub-name = iot-seniorliving
+@iot-hub-device-uri= {{iot-hub-name}}.azure-devices.net/devices/{{device-id}}
+@iot-hub-api-ver = 2018-04-01
+@iot-hub-rest-uri = https://{{iot-hub-device-uri}}/messages/events?api-version={{iot-hub-api-ver}}
+
+//Add this var to a .env file 
+@sas-token = {{$dotenv sas-token}} 
+###
+POST {{iot-hub-rest-uri}}
+Authorization: {{sas-token}}
+Content-Type:  application/json
+
+{
+ "Data11": 17,
+ "data82" : 19
+}

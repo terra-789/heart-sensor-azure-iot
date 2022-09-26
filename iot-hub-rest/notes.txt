@@ -1,0 +1,6 @@
+
+esp32-01
+
+az iot hub monitor-events --output table --hub-name iot-seniorliving --output yaml
+
+az iot hub generate-sas-token --hub-name  --device-id
