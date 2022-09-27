@@ -14,6 +14,6 @@ Authorization: {{sas-token}}
 Content-Type:  application/json
 
 {
- "Data11": 17,
- "data82" : 19
+ "bpm": 98,
+ "avg_bpm" : 93
 }

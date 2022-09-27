@@ -48,13 +48,72 @@ The completed work allows to track the MAX30102 reading realtime :
 ![MAX30102 realtime](images/realtime-visualization.png)
 
 
+# Azure IoT Interface
+
+The ESP32 code uses a simple HTTP Post REST call to send telemetry data to Azure IoT Hub. 
+
+The file `iot-hub-rest/iotpost.http` provides a working example how to make the HTTP POST call:
+
+```
+POST {{iot-hub-rest-uri}}
+Authorization: {{sas-token}}
+Content-Type:  application/json
+
+{
+ "bpm": 98,
+ "avg_bpm" : 93
+}
+
+```
+
+
+> The `iotpost.http` file can be processed and execute by the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) Visual Studio Code extension.
+
+The following Arduino sketch code sends the POST call to Azure IoT Hub:
+
+```
+HTTPClient http;
+
+String request = "https://" + String(IOT_HUB_NAME) + ".azure-devices.net/devices/" + String(DEVICE_ID) + "/messages/events?api-version=2018-04-01";
+Serial.print("Sending WIFI: ");
+Serial.print(request);
+Serial.print(jsonPayload);
+Serial.print(" -> Result: ");
+http.begin(request);
+http.addHeader("Content-Type", "application/json");
+http.addHeader("Authorization", SAS_TOKEN);
+int httpStatus = http.POST(jsonPayload);
+response = http.getString();
+Serial.println(httpStatus);
+http.end();
+```
+
+The HTTP Post REST call is the The **Send Device Event**. While it is documented [here](https://learn.microsoft.com/en-us/rest/api/iothub/device/send-device-event), the `iotpost.http` example deciphers a few details to successfully make the call. 
+
+The following Azure CLI command shows/traces the events being submitted by the ESP32 code or any devices. It is quite helpful for debugging or diagnosing issues with malformed REST calls.
+
+```
+az iot hub monitor-events --output table --hub-name {name} --output yaml
+```
+
+
+
+#### Options for generating per-device SAS tokens
+
+There are a few options to get a per-device SAS tokens including the following:
+
+1. Azure CLI: https://learn.microsoft.com/en-us/cli/azure/iot/hub?view=azure-cli-latest#az-iot-hub-generate-sas-token
+1. Azure IoT tools for Visual Studio Code: https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-tools
+1. Azure IoT explorer https://learn.microsoft.com/en-us/azure/iot-fundamentals/howto-use-iot-explorer
+
+
+
 
 
 # Next steps for extending this idea:
 
 1. MAX30102 sensor can sense blood oxygen level and body temperature.
-1. The noise cancellation algorithm can improve by leveraging the Azure Stream 1. Analytics power
-1. Anomaly detection and alerts
-1. The Power BI visualization presented in this POC is basic and raw. The visualization can significantly improve
+1. The noise cancellation algorithm can improve by leveraging the Azure Stream Analytics stream data processing power.
+1. Anomaly detection and alerts.
 
 

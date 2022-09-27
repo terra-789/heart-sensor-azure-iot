@@ -62,9 +62,9 @@ void setup()
   lcd.init();                     // LCD driver initialization
   lcd.backlight();                // Open the backlight
   lcd.setCursor(0,0);             // Move the cursor to row 0, column 0
-  lcd.print(WiFi.localIP());     // The print content is displayed on the LCD
+  lcd.print(WiFi.localIP());      // The print content is displayed on the LCD
   lcd.setCursor(0,1);             // Move the cursor to row 0, column 0
-  lcd.print("Init MAX30105...");     // The print content is displayed on the LCD
+  lcd.print("Init MAX30105...");  // The print content is displayed on the LCD
   
 
   // Initialize sensor
@@ -96,7 +96,7 @@ void loop()
     long delta = millis() - lastBeat;
     lastBeat = millis();
     if(skipNextBeat == true){
-      // Due to telemetry upload lastBeat is not accuare. We skip this lastBeat value
+      // Due to telemetry upload lastBeat is not accurate. We skip this lastBeat value
       skipNextBeat = false;
       Serial.println("Heart Beat Skipped");
       return;
@@ -158,8 +158,8 @@ void loop()
   
   String jsonPayload = "{ \"IR\": " + String(irValue) + " , \"BPM\": " + String((int)beatsPerMinute)  + " , \"AVG_BPM\": " + String(beatAvg) +  " , \"Attached\": " + String(sensorAttached) + " }";  
  
-  lcd.setCursor(0,1);               // Move the cursor to row 1, column 0
-  lcd.print(displaycsv);                   // The count is displayed every second
+  lcd.setCursor(0,1); 
+  lcd.print(displaycsv);
   if (wifiPulseFlag>0){
       HTTPClient http;
 
