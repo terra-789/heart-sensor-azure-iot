@@ -2,7 +2,7 @@
 
 This repository provides a sample ESP32 code how to collect a MAX30102 data and send the reading to Azure IoT Hub.
 
-> **Please note**: The code for deployment of Azure and Power BI resources is not included here. This intent of this repository is to share the ESP32 code and its approach to send telemetry data to Azure IoT Hub (MQTT vs REST)
+> **Please note**: The code for deployment of Azure and Power BI resources are not included here. This intent of this repository is to share the ESP32 code and its approach to send telemetry data to Azure IoT Hub (MQTT vs REST)
 
 
 
